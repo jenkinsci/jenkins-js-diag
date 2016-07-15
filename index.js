@@ -1,5 +1,5 @@
 // See https://github.com/bigpipe/diagnostics
-var diagnostics = require('diagnostics');
+var diagnostics = require('diagnostics/browser');
 
 exports.logDebug = function (category, message) {
     if (arguments.length > 1) {

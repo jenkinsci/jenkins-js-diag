@@ -1,6 +1,6 @@
 {
   "name": "@jenkins-cd/diag",
-  "version": "0.0.1-beta1",
+  "version": "0.0.1-beta2",
   "description": "Jenkins client-side diagnostics",
   "main": "index.js",
   "scripts": {
