@@ -1,5 +1,32 @@
 // See https://github.com/bigpipe/enabled
 var enabled = require('enabled');
+var logCategoryConfigCache = {};
+
+function getCategoryConfig(category) {
+    var config = logCategoryConfigCache[category];
+    if (!config) {
+        config = {
+            category: category,
+            enabled: enabled(category)
+        };
+        logCategoryConfigCache[category] = config;
+    }
+    return config;
+}
+
+exports.reloadConfig = function(category) {
+    if (category) {
+        // Reload a specific config
+        getCategoryConfig(category).enabled = enabled(category);
+    } else {
+        // Reload all configs
+        for (var categoryName in logCategoryConfigCache) {
+            if (logCategoryConfigCache.hasOwnProperty(categoryName)) {
+                exports.reloadConfig(categoryName);
+            }
+        }
+    }
+};
 
 exports.logger = function (category) {
     if (category === undefined) {
@@ -7,14 +34,14 @@ exports.logger = function (category) {
     }
     
     var LOGGER = {};
-    var debugIsEnabled = enabled(category);
+    var categoryConfig = getCategoryConfig(category);
     
     LOGGER.isDebugEnabled = function () {
-        return debugIsEnabled;
+        return categoryConfig.enabled;
     };
 
     LOGGER.debug = function (message) {
-        if (debugIsEnabled) {
+        if (LOGGER.isDebugEnabled()) {
             console.debug.apply(console, [category].concat(arguments));
         }
     };
