@@ -7,13 +7,14 @@ exports.logger = function (category) {
     }
     
     var LOGGER = {};
+    var debugIsEnabled = enabled(category);
     
     LOGGER.isDebugEnabled = function () {
-        return enabled(category);
+        return debugIsEnabled;
     };
 
     LOGGER.debug = function (message) {
-        if (LOGGER.isDebugEnabled()) {
+        if (debugIsEnabled) {
             console.debug.apply(console, [category].concat(arguments));
         }
     };
