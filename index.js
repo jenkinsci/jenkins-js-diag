@@ -2,6 +2,12 @@
 var enabled = require('enabled');
 var logCategoryConfigCache = {};
 
+// Some environments don't have a console.debug method.
+// In this case, send messages to console.log. 
+if (!console.debug) {
+    console.debug = console.log;
+}
+
 function getCategoryConfig(category) {
     var config = logCategoryConfigCache[category];
     if (!config) {
