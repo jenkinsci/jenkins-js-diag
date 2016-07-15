@@ -1,14 +1,27 @@
-// See https://github.com/bigpipe/diagnostics
-var diagnostics = require('diagnostics/browser');
+// See https://github.com/bigpipe/enabled
+var enabled = require('enabled');
 
-exports.logDebug = function (category, message) {
-    if (arguments.length > 1) {
-        diagnostics(category).apply(this, arguments.slice(1));
-    } else {
-        console.error('Invalid call to @jenkins-cd/diag.logDebug(). Must provide category and message arguments at a minimum.');
+exports.logger = function (category) {
+    if (category === undefined) {
+        throw new Error('Cannot create logger. Log "category" name must be specified.');
     }
-};
+    
+    var LOGGER = {};
+    var debugIsEnabled = enabled(category);
+    
+    LOGGER.isDebugEnabled = function () {
+        return debugIsEnabled;
+    };
 
-exports.logError = function (category, message) {
-    console.error.apply(this, arguments);
+    LOGGER.debug = function (message) {
+        if (debugIsEnabled) {
+            console.debug.apply(this, [category].concat(arguments));
+        }
+    };
+    
+    LOGGER.error = function (message) {
+        console.error.apply(this, [category].concat(arguments));
+    };    
+    
+    return LOGGER;
 };

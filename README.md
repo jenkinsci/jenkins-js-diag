@@ -6,32 +6,38 @@
 npm install --save @jenkins-cd/diag
 ```
 
-## Functions
-The package exposes the following functions:
-
-### logError(category, message [, other-args])
+## logger(category)
+Get a `LOGGER` for the specified category.
 
 ```javascript
-var diag = require('@jenkins-cd/diag');
-
-diag.logError('sse', 'Invalid SSE event message format.', event);
-```
-
-### logDebug(category, message [, other-args])
-
-Currently, this module uses the [diagnostics] package for logging debug messages.
-
-> __NOTE__: One slight terminology difference between this package and the [diagnostics] package is that this package uses the term "category" (log "category") where [diagnostics] uses the term "namespace"/"name". Aside from that, everything else is the same.
-
-```javascript
-var diag = require('@jenkins-cd/diag');
-
-diag.logDebug('sse', `SSE event ${event.jenkins_channel}/${event.jenkins_event}:`, event);
-```
-
-## Management
-
-Please see the [diagnostics] docs for how to turn on/off debug logging in the Browser.
-Error logs are always logged, so no configuration needed there.
+var LOGGER = require('@jenkins-cd/diag').logger('sse');
  
-[diagnostics]: https://www.npmjs.com/package/diagnostics
+// Log messages etc . See below.
+```
+
+### error(message [, other-args])
+
+```javascript
+var LOGGER = require('@jenkins-cd/diag').logger('sse');
+
+LOGGER.error('Invalid SSE event message format.', event);
+```
+
+Error logs are always logged, so no configuration needed here.
+
+### debug(message [, other-args])
+
+Currently, this module uses the [enabled] package for logging debug messages.
+
+> __NOTE__: One slight terminology difference between this package and the [enabled] package is that this package uses the term "category" (log "category") where [enabled] uses the term "namespace"/"name". Aside from that, everything else is the same.
+
+```javascript
+var LOGGER = require('@jenkins-cd/diag').logger('sse');
+
+LOGGER.debug(`SSE event ${event.jenkins_channel}/${event.jenkins_event}:`, event);
+```
+
+Please see the [enabled] (and [env-variable]) docs for how to turn on/off debug logging in the Browser.
+ 
+[enabled]: https://www.npmjs.com/package/enabled
+[env-variable]: https://www.npmjs.com/package/env-variable

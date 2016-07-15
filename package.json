@@ -1,6 +1,6 @@
 {
   "name": "@jenkins-cd/diag",
-  "version": "0.0.1-beta2",
+  "version": "0.0.1-beta3",
   "description": "Jenkins client-side diagnostics",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,6 @@
   "author": "Tom Fennelly <tom.fennelly@gmail.com> (https://github.com/tfennelly)",
   "license": "MIT",
   "dependencies": {
-    "diagnostics": "^1.0.1"
+    "enabled": "1.0.2"
   }
 }
