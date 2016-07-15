@@ -14,12 +14,12 @@ exports.logger = function (category) {
 
     LOGGER.debug = function (message) {
         if (LOGGER.isDebugEnabled()) {
-            console.debug.apply(this, [category].concat(arguments));
+            console.debug.apply(console, [category].concat(arguments));
         }
     };
     
     LOGGER.error = function (message) {
-        console.error.apply(this, [category].concat(arguments));
+        console.error.apply(console, [category].concat(arguments));
     };    
     
     return LOGGER;
