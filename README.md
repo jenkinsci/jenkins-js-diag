@@ -38,6 +38,10 @@ LOGGER.debug(`SSE event ${event.jenkins_channel}/${event.jenkins_event}:`, event
 ```
 
 Please see the [enabled] (and [env-variable]) docs for how to turn on/off debug logging in the Browser.
+
+### isDebugEnabled()
+
+Returns true if debug logging is enabled for the category associated with the logger instance.
  
 [enabled]: https://www.npmjs.com/package/enabled
 [env-variable]: https://www.npmjs.com/package/env-variable
